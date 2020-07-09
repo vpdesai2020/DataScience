@@ -1,0 +1,87 @@
+---
+title: "Visualization of CO2 Levels"
+author: "Vasanth Desai"
+date: "09/07/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Visualization of Carbon Dioxide Level
+
+In this task,I will work on two datasets containing data about the carbon dioxide levels in the environment. specifically will look at the increase in carbon dioxide levels over the past hundred years.
+
+These data are calculated by analyzing ice cores. Over time, gas gets trapped in the ice of Antarctica. Scientists can take samples of that ice and see how much carbon is in it. The deeper you go into the ice, the farther back in time you can analyze!
+
+### Load libraries and data-set
+```{r echo=TRUE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+```
+step 1: Import the "carbon_dioxide_levels.csv" and save it to a  variable named df
+```{r}
+df=read_csv("carbon_dioxide_levels.csv")
+```
+step 2: Inspect the head of the data frame
+```{r}
+head(df)
+```
+### Let’s visualize this data
+
+```{r}
+data1_viz =ggplot(data=df, aes(x=Age_yrBP ,y=CO2_ppmv))#aesthetic mapping that maps Age_yrBP on the x-axis and CO2_ppmv on the y-axis
+data1_viz
+
+#Here ll prefer line graphs bcoz best to portray fluctuations in level of CO2. Add a geom_line() layer to the data1_viz plot.
+data1_viz=data1_viz+geom_line(col="blue")
+data1_viz
+
+#Now will label the graph by Title, sybtitle and axis
+data1_viz=data1_viz+labs(title="Carbon Dioxide Levels From 8,000 to 136 Years BP", subtitle="From World Data Center for Paleoclimatology and NOAA Paleoclimatology Program") + labs(x="Years Before Today (0=1950)", y="Carbon Dioxide Level (Parts Per Million)")
+
+data1_viz
+
+#Will make the years on the x-axis arranged in descending order
+data1_viz=data1_viz+scale_x_reverse(lim=c(800000,0))
+data1_viz
+```
+### Second dataset
+
+Import the "yearly_co2.csv" file and save it to a new variable named df2
+
+```{r}
+df2=read_csv("yearly_co2.csv")
+```
+Inspect the head of the data frame
+```{r}
+head(df2)
+```
+### Let’s visualize second data set
+
+```{r}
+#aesthetic mapping that maps year on the x-axis and data_mean_global on the y-axis
+data2_viz=ggplot(data=df2,aes(x=year,y=data_mean_global))
+
+#A line graph also makes sense for these data.adding a geom_line() layer to the data2_viz plot
+data2_viz=data2_viz+geom_line()
+data2_viz
+
+#Now will label the graph by Title, sybtitle and axis
+data2_viz=data2_viz+labs(title="Carbon Dioxide Levels over Time",subtitle="From Institute for Atmospheric and Climate Science (IAC).")+labs(x="Year",y="Carbon Dioxide Level (Parts Per Million)")
+data2_viz
+
+#Now highlight the rise in carbon dioxide levels by adding a horizontal line that represents the maximum level in the first chart spanning over 8,000 years of carbon dioxide data.
+millennia_max=max(df$CO2_ppmv) #maximum number in the data set
+
+# let’s map it on our df2 plot. There’s a geom in ggolot called geom_hline() that plots a horizontal line.
+data2_viz + geom_hline(aes(yintercept=millennia_max))
+
+#Add one more argument to the horizonal line’s aesthetic mapping so that the legend can display information about what the line represents. Assign the value of the linetype argument as "Historical CO2 Peak before 1950"
+
+data2_viz + geom_hline(aes(yintercept=millennia_max, linetype="Historical CO2 Peak before 1950"))
+
+```
