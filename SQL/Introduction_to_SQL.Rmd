@@ -1,0 +1,87 @@
+---
+title: "Introduction to SQL"
+author: "Vasanth Desai"
+date: "15/07/2020"
+output: html_document
+---
+Creating SQLite database named as Friends_DB
+```{r}
+library(DBI)
+db = dbConnect(RSQLite::SQLite(), dbname = "Friends_DB.sqlite")
+```
+
+ 1. Create a table named friends with three columns:
+      id that stores INTEGER
+      name that stores TEXT
+      birthday that stores DATE */
+```{sql, connection=db}
+CREATE TABLE friends (id, name, birthday);
+/*The 'CREATE TABLE' statement is used to create a new table in the database: */
+```
+
+2. Beneath your current code, add John burg to friends.
+    His birthday is May 30th, 1990.
+```{sql, connection=db}
+INSERT INTO friends (id, name, birthday) 
+VALUES (1, 'John burg', '1990-05-30');
+
+/*The INSERT INTO statement is used to insert new records into a table: */
+```
+
+3. Let’s make sure that Jane has been added to the database:
+```{sql, connection=db}
+SELECT * 
+FROM friends;
+```
+
+4. Let’s move on!
+    Add two of your friends to the table.
+    Insert an id, name, and birthday for each of them.
+```{sql, connection=db}    
+INSERT INTO friends (id, name, birthday) 
+VALUES (2, 'RajaMouli', '1973-10-10');
+```
+```{sql, connection=db}
+INSERT INTO friends (id, name, birthday) 
+VALUES (3, 'vasanth', '1993-12-13');
+```
+5. Update John burg last name with “Smith”.
+    Update her record in friends.
+```{sql, connection=db}
+UPDATE friends
+SET name = 'John Smith'
+WHERE id = 1;
+/* The UPDATE statement is used to modify the existing records in a table: */
+```
+6. Add a new column named email.
+```{sql, connection=db}
+ALTER TABLE friends 
+ADD COLUMN email TEXT; 
+/* The ALTER TABLE statement is used to add, delete, or modify columns in an existing table: */
+```
+7. Update the email address for everyone in your table.
+```{sql, connection=db}
+UPDATE friends
+SET email = 'john@smith.com'
+WHERE id = 1;
+```
+```{sql, connection=db}
+UPDATE friends
+SET email = 'ssmouli@bb2.com'
+WHERE id = 2;
+```
+```{sql, connection=db}
+UPDATE friends
+SET email = 'vpd@ymail.com'
+WHERE id = 3;
+```
+8. Lets remove John smith from friends.
+```{sql, connection=db}
+DELETE FROM friends
+WHERE id = 1;
+```
+9. Show all data in the table
+```{sql, connection=db}
+SELECT * 
+FROM friends;
+```
