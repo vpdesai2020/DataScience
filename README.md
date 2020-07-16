@@ -3,6 +3,8 @@
 - [Visualization of CO2 Levels using R](https://github.com/vpdesai2020/DataScience/tree/master/Visualization%20of%20CO2%20Levels%20in%20R) - Viualization of Carbon Dioxide level in the environment using an R programming language 
 [view](https://htmlpreview.github.io/?https://github.com/vpdesai2020/DataScience/blob/master/Visualization%20of%20CO2%20Levels%20in%20R/Visualizing_CO2_levels.html)
 
+- [SQL](https://htmlpreview.github.io/?https://github.com/vpdesai2020/DataScience/blob/master/SQL/Introduction_to_SQL.html)
+
 
 - [Basic plots for the beginning](https://github.com/vpdesai2020/DataScience/blob/master/NoteBook%20-%20Basic%20plotting/Basic%20plots%20for%20the%20beginning%20.ipynb)
 
